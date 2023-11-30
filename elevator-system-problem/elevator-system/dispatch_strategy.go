@@ -1,5 +1,6 @@
 package elevator_system
 
 type dispatchStrategy interface {
-	dispatch()
+	processRequest(request request)
+	start()
 }
