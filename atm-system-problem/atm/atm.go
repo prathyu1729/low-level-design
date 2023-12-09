@@ -6,6 +6,7 @@ type Atm struct {
 	cardMapping   map[string]bankAccount
 	atmBalance    float64
 	denominations map[float64]int
+	amountChecker *amountChecker
 	idle          state
 	authenticated state
 	currentState  state
@@ -36,4 +37,16 @@ func (a *Atm) CheckBalance() (float64, error) {
 
 func (a *Atm) setState(state state) {
 	a.currentState = state
+}
+
+func (a *Atm) getDenominations() []int {
+	//TODO:
+}
+
+func (a *Atm) updateDenominations(denom map[float64]int) error {
+
+}
+
+func (a *Atm) reduceBalance(amount float64) error {
+
 }

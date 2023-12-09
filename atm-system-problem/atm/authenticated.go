@@ -1,6 +1,8 @@
 package atm
 
-import "errors"
+import (
+	"errors"
+)
 
 type authenticated struct {
 	atm  *Atm
@@ -37,10 +39,22 @@ func (a *authenticated) withdraw(amount float64) error {
 		return errors.New("Request not supported at the moment")
 	}
 
-	//TODO: denomination check
-	a.atm.atmBalance = a.atm.atmBalance - amount
-	//TODO: update denomination
+	flag, denominations := a.atm.amountChecker.getDenominations(amount)
+	if !flag {
+		return errors.New("Unsupported amount")
+	}
+
+	if err := a.atm.reduceBalance(amount); err != nil {
+		return err
+	}
+
+	if err := a.atm.updateDenominations(denominations); err != nil {
+		return err
+	}
+
 	a.unSetCard()
 	a.atm.setState(a.atm.idle)
 	return nil
 }
+
+
