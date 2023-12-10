@@ -40,13 +40,13 @@ func (a *Atm) setState(state state) {
 }
 
 func (a *Atm) getDenominations() []int {
-	//TODO:
+	panic("implement me")
 }
 
 func (a *Atm) updateDenominations(denom map[float64]int) error {
-
+	panic("implement me")
 }
 
 func (a *Atm) reduceBalance(amount float64) error {
-
+	panic("implement me")
 }
