@@ -2,12 +2,13 @@ package pubsub
 
 import (
 	"errors"
+	"fmt"
 	"sync"
 )
 
 type Publisher struct {
 	observers map[observer]bool
-	queue     queue
+	queue     *queue
 	mu        sync.Mutex
 }
 
@@ -35,7 +36,9 @@ func (p *Publisher) UnSubscribe(observer observer) error {
 }
 
 func (p *Publisher) Notify() {
+	fmt.Println("started notifying")
 	messages := p.queue.messages
+	fmt.Println(" no of messages", len(messages))
 	for _, message := range messages {
 		for observer, _ := range p.observers {
 			observer.getMessage(message)
